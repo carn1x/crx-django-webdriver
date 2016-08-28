@@ -9,7 +9,7 @@ setup(
     packages=['crx_django_webdriver'],
     install_requires=[
         'selenium==2.53.6',
-        'django==1.8',
+        'django>=1.8',
     ],
     url='https://github.com/carn1x/crx-django-webdriver',
     license='GNU GENERAL PUBLIC LICENSE Version 3, see LICENCE',
