@@ -1,4 +1,5 @@
 from __future__ import unicode_literals
+import logging
 
 import re
 from selenium.webdriver import ActionChains
@@ -9,6 +10,9 @@ from selenium.webdriver.support.wait import WebDriverWait
 import time
 import assertions as a
 from crx_django_webdriver import settings
+
+
+logger = logging.getLogger('crx_django_webdriver')
 
 
 class DjangoWebdriverElement(object):
@@ -64,7 +68,7 @@ class DjangoWebdriverElement(object):
             by = By.PARTIAL_LINK_TEXT
 
         else:
-            print('Unknown method: {}'.format(method))
+            logger.error('Unknown method: {}'.format(method))
 
         return by
 
@@ -207,7 +211,7 @@ class DjangoWebdriverElement(object):
 
     def select_by(self, select_by, value):
         if select_by == 'text':
-            print('selecting {} by {}'.format(value, select_by))
+            logger.debug('selecting {} by {}'.format(value, select_by))
             element = self.select()
             Select(element).select_by_visible_text(value)
 

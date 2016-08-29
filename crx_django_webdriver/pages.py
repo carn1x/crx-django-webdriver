@@ -1,10 +1,14 @@
 from __future__ import unicode_literals
+import logging
+import time
+from urlparse import urlparse
 
 from crx_django_webdriver import settings
 from crx_django_webdriver.elements import DjangoWebdriverElement
 import crx_django_webdriver.assertions as a
-import time
-from urlparse import urlparse
+
+
+logger = logging.getLogger('crx_django_webdriver')
 
 
 class DjangoWebdriverPage(object):
@@ -69,13 +73,13 @@ class DjangoWebdriverPage(object):
         value = value or self.get_value(element_key)
 
         if index:
-            print('{command} {element_key}[{index}] : {value}'.format(
+            logger.debug('{command} {element_key}[{index}] : {value}'.format(
                 command=command,
                 element_key=element_key,
                 index=index,
                 value=value))
         else:
-            print('{command} {element_key} : {value}'.format(
+            logger.debug('{command} {element_key} : {value}'.format(
                 command=command,
                 element_key=element_key,
                 value=value))
@@ -103,11 +107,11 @@ class DjangoWebdriverPage(object):
         # Strip out double-slashes.
         current_url = current_url.replace('//','/')
         if url == current_url:
-            print("can't goto({}), already there".format(url))
+            logger.debug("can't goto({}), already there".format(url))
             return
 
         self.testcase.navigate_to(url)
-        print('goto({})'.format(url))
+        logger.debug('goto({})'.format(url))
         time.sleep(settings.DJANGO_WEBDRIVER_GOTO_DELAY)
 
     def click(self, element, index=None):
@@ -120,13 +124,13 @@ class DjangoWebdriverPage(object):
         assertions = assertions or self.get_assertions(element)
 
         if index:
-            print('Assert {element}[{index}] : {assertions} {values}'.format(
+            logger.debug('Assert {element}[{index}] : {assertions} {values}'.format(
                 element=element,
                 index=index,
                 assertions=assertions,
                 values=values))
         else:
-            print('Assert {element} : {assertions} {values}'.format(
+            logger.debug('Assert {element} : {assertions} {values}'.format(
                 element=element,
                 assertions=assertions,
                 values=values))
@@ -162,7 +166,7 @@ class DjangoWebdriverPage(object):
                                                               _property_key=_property_key)
 
     def execute_script(self, value):
-        print('execute_script {}'.format(value))
+        logger.debug('execute_script {}'.format(value))
         self.testcase.driver.execute_script(value)
 
     def alert(self, value=None):
