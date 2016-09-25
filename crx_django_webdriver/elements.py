@@ -201,7 +201,8 @@ class DjangoWebdriverElement(object):
 
     def input(self, value=None):
         self.select().clear()
-        self.select().send_keys(value)
+        if value:
+            self.select().send_keys(value)
 
     def click(self, value=None):
         self.select().click()
