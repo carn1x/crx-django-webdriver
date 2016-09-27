@@ -3,7 +3,7 @@ from distutils.core import setup
 
 setup(
     name='crx-django-webdriver',
-    version='0.0.1',
+    version='0.0.4',
     author='carn1x',
     author_email='github.com/carn1x',
     packages=['crx_django_webdriver'],
